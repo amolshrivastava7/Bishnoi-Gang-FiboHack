@@ -45,8 +45,8 @@
             border-top: 2px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Alert and video card styles */
-        .alert-card, .video-card {
+        /* Alert and audio card styles */
+        .alert-card, .audio-card {
             background-color: rgba(255, 77, 77, 0.8);
             color: #ffffff;
             padding: 15px;
@@ -58,8 +58,8 @@
             animation: fadeInSlideDown 0.5s ease forwards;
         }
 
-        /* Enhanced video player styles */
-        .video-card video {
+        /* Enhanced audio player styles */
+        .audio-card audio {
             width: 100%;
             margin-top: 10px;
             border-radius: 5px;
@@ -130,10 +130,10 @@
         <h2>Alert Location Map</h2>
         <div id="map"></div> <!-- Map container -->
 
-        <!-- Video Recordings Section -->
-        <h2>Video Recordings</h2>
+        <!-- Audio Recordings Section -->
+        <h2>Audio Recordings</h2>
         <div id="recordings">
-            <!-- Video recordings will be injected here -->
+            <!-- Audio recordings will be injected here -->
         </div>
     </div>
 
@@ -152,9 +152,9 @@
         const socket = io();
 
         // Initialize Leaflet map
-        const map = L.map('map').setView([0, 0], 2);
+        const map = L.map('map').setView([0, 0], 2);  // Default global view
 
-        // Add a tile layer from OpenStreetMap
+        // Add a tile layer (map design) from OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
@@ -162,7 +162,7 @@
         // Function to create and update markers on the map
         function updateMap(latitude, longitude) {
             const marker = L.marker([latitude, longitude]).addTo(map);
-            map.setView([latitude, longitude], 13);
+            map.setView([latitude, longitude], 13);  // Zoom in on the new marker
         }
 
         // Display new alerts
@@ -170,22 +170,24 @@
             const alertElement = document.createElement('div');
             alertElement.classList.add('alert-card');
             alertElement.innerText = `🚨 Alert received! Latitude: ${data.latitude}, Longitude: ${data.longitude}, Time: ${new Date(data.timestamp).toLocaleTimeString()}`;
-            alertsDiv.prepend(alertElement);
+            alertsDiv.prepend(alertElement);  // Add new alerts to the top
+
+            // Update the map with the alert location
             updateMap(data.latitude, data.longitude);
         });
 
-        // Display new video recordings
-        socket.on('new-recording', (videoUrl) => {
+        // Display new recordings
+        socket.on('new-recording', (audioUrl) => {
             const recordingElement = document.createElement('div');
-            recordingElement.classList.add('video-card');
+            recordingElement.classList.add('audio-card');
             recordingElement.innerHTML = `
-                <p>🎥 New recording uploaded: <a href="${videoUrl}" target="_blank" class="text-white">Download</a></p>
-                <video controls>
-                    <source src="${videoUrl}" type="video/webm">
-                    Your browser does not support the video tag.
-                </video>
+                <p>🎙️ New recording uploaded: <a href="${audioUrl}" target="_blank" class="text-white">Download</a></p>
+                <audio controls>
+                    <source src="${audioUrl}" type="audio/webm">
+                    Your browser does not support the audio tag.
+                </audio>
             `;
-            recordingsDiv.prepend(recordingElement);
+            recordingsDiv.prepend(recordingElement);  // Add new recordings to the top
         });
     </script>
 
