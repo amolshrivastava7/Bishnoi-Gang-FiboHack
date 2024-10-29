@@ -43,7 +43,7 @@ app.post('/api/send-alert', (req, res) => {
   res.json({ success: true, message: 'Alert sent successfully' });
 });
 
-// Route to upload audio recordings to Firebase Storage
+// Route to upload video recordings to Firebase Storage
 app.post('/api/upload-recording', upload.single('file'), async (req, res) => {
   const file = req.file;
 
@@ -52,7 +52,7 @@ app.post('/api/upload-recording', upload.single('file'), async (req, res) => {
     return res.status(400).json({ success: false, message: 'No file uploaded' });
   }
 
-  // Generate unique filename
+  // Generate unique filename for video
   const fileName = `${uuidv4()}.webm`;
   const fileUpload = bucket.file(fileName);
 
@@ -69,16 +69,16 @@ app.post('/api/upload-recording', upload.single('file'), async (req, res) => {
   });
 
   blobStream.on('finish', async () => {
-    // Get the URL of the uploaded audio file
-    const audioUrl = await fileUpload.getSignedUrl({
+    // Get the URL of the uploaded video file
+    const videoUrl = await fileUpload.getSignedUrl({
       action: 'read',
       expires: '03-01-2030', // Set an expiration date for the URL
     });
 
-    // Emit the audio URL to clients
-    io.emit('new-recording', audioUrl[0]);
+    // Emit the video URL to clients
+    io.emit('new-recording', videoUrl[0]);
 
-    res.json({ success: true, message: 'Recording uploaded successfully', audioUrl: audioUrl[0] });
+    res.json({ success: true, message: 'Recording uploaded successfully', videoUrl: videoUrl[0] });
   });
 
   blobStream.end(file.buffer);
