@@ -16,7 +16,7 @@
       crossorigin="anonymous"
     ></script>
     <style>
-      /* Original CSS code */
+      /* Background and Animation Styles */
       body {
         background: linear-gradient(135deg, #2b2b2b, #3d3d3d, #5e5e5e);
         background-size: 400% 400%;
@@ -44,19 +44,16 @@
         transform: translateY(-30px);
         animation: fadeInSlideDown 1s ease forwards;
       }
-
       h1 {
         text-align: center;
         color: #ffffff;
         font-weight: bold;
       }
-
       p {
         text-align: center;
         font-size: 1.1em;
         color: #e0e0e0;
       }
-
       .btn-custom {
         background-color: #ff4d4d;
         color: white;
@@ -68,11 +65,9 @@
         margin: 0px;
         transition: background-color 0.3s ease;
       }
-
       .btn-custom:hover {
         background-color: #e63939;
       }
-
       #status {
         margin-top: 20px;
         text-align: center;
@@ -80,7 +75,6 @@
         color: #333;
         padding: 10px;
       }
-
       footer {
         text-align: center;
         margin-top: 0px;
@@ -88,19 +82,15 @@
         background-color: #f5f5f5;
         border-top: 1px solid #ddd;
       }
-
       nav.navbar {
         animation: fadeIn 1s ease-in-out;
       }
-
       .footer {
         background-color: #1e1e1e;
         color: #b0b0b0;
         text-align: center;
         padding: 20px;
       }
-
-      /* Keyframe animations */
       @keyframes fadeInSlideDown {
         from {
           opacity: 0;
@@ -122,18 +112,7 @@
           background-position: 0% 50%;
         }
       }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* New styles for video player */
+      /* Video Player Styles */
       .video-player {
         background-color: #444;
         border-radius: 10px;
@@ -228,8 +207,14 @@
             body: JSON.stringify({ latitude, longitude }),
           });
           const result = await response.json();
-          statusMessage.innerText = result.success ? "Alert sent successfully" : "Failed to send alert";
-          statusMessage.style.color = result.success ? "green" : "red";
+          if (result.success) {
+            statusMessage.innerText = "Alert sent successfully, starting video recording...";
+            statusMessage.style.color = "green";
+            startRecording(); // Start recording after successfully sending the alert
+          } else {
+            statusMessage.innerText = "Failed to send alert";
+            statusMessage.style.color = "red";
+          }
         } catch (err) {
           console.error("Error sending alert:", err);
           statusMessage.innerText = "Error sending alert";
@@ -239,15 +224,21 @@
 
       function getLocation() {
         return new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              resolve({
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-              });
-            },
-            () => reject("Geolocation permission denied or unavailable")
-          );
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                resolve({
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude,
+                });
+              },
+              (error) => {
+                reject("Geolocation permission denied or unavailable");
+              }
+            );
+          } else {
+            reject("Geolocation not supported by this browser");
+          }
         });
       }
 
@@ -268,7 +259,7 @@
             videoPlayback.src = videoURL;
             videoPlayer.style.display = "flex";
 
-            await uploadRecording(videoBlob);
+            await uploadRecording(videoBlob); // Upload after stopping
           };
 
           mediaRecorder.start();
@@ -278,7 +269,7 @@
           setTimeout(() => {
             mediaRecorder.stop();
             statusMessage.innerText = "Recording stopped. Uploading...";
-          }, 10000);
+          }, 10000); // 10 seconds
         } catch (err) {
           console.error("Error accessing camera:", err);
           statusMessage.innerText = "Error accessing camera";
@@ -308,8 +299,7 @@
       alertButton.addEventListener("click", async () => {
         try {
           const location = await getLocation();
-          await sendAlert(location.latitude, location.longitude);
-          startRecording();
+          await sendAlert(location.latitude, location.longitude); // Send alert with real coordinates
         } catch (error) {
           console.error("Error getting location:", error);
           statusMessage.innerText = "Error getting location";
