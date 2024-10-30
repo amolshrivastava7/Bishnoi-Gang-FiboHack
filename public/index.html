@@ -5,134 +5,135 @@
     <title>Login + Firebase Database</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Inline CSS -->
     <style>
+        /* Root style for easy theme modifications */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #2b2b2b, #3d3d3d, #5e5e5e);
+            --accent-color: rgba(255, 77, 77, 0.8);
+            --primary-font: 'Montserrat', sans-serif;
+            --header-font: Arial, sans-serif;
+        }
+
         html, body {
             width: 100%;
             height: 100%;
-            background: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF);
+            background: var(--primary-gradient);
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: var(--primary-font);
+            overflow: hidden;
+            animation: backgroundAnimation 10s ease-in-out infinite;
+            background-size: 400% 400%;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            border: none;
-            outline: none;
+        @keyframes backgroundAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
+
         #content_container {
             width: 30%;
             height: 70%;
+            transition: all 0.3s ease;
+            animation: fadeIn 1.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         #form_container {
             width: 100%;
             height: 100%;
-            background-color: #370617;
+            background-color: #2b2b2b;
             box-shadow: 0 0 50px -20px #000;
-            border-radius: 2%;
+            border-radius: 8px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         #form_header_container {
             width: 100%;
-            height: 5%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            float: left;
-            padding: 20px;
-            padding-bottom: 30px;
-            padding-top: 30px;
-            border-bottom: 1px solid transparent;
-            border-image: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF) 20;
-            background: #000;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         #form_header {
-            display: inline-block;
-            font-size: 15px;
-            font-family: Bowlby One SC;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+            font-family: var(--header-font);
+            color: #fff;
         }
 
         #form_content_container {
             width: 100%;
-            height: 90%;
-            float: left;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-top: 30px;
+            flex-direction: column;
         }
 
-        #form_content_inner_container {
-            width: 75%;
-            height: 100%;
-            float: left;
-        }
-
-        input[type="text"], input[type="email"], input[type="password"] {
+        input[type="email"], input[type="password"] {
             width: 100%;
             height: 40px;
             padding-left: 10px;
             margin-bottom: 20px;
-            background: #000;
-            font-family: Montserrat;
-            font-weight: 500;
+            background: #3d3d3d;
             color: #fff;
-            font-size: 12px;
+            border: none;
+            border-radius: 5px;
             border-bottom: 2px solid transparent;
-            border-top-left-radius: 2%;
-            border-top-right-radius: 2%;
-            border-image: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF) 1;
+            transition: border-bottom 0.3s ease;
+            font-size: 0.9rem;
         }
 
-        #button_container {
-            width: 100%;
-            height: 10%;
-            background-image: linear-gradient(80deg, #FFBE0B, #FB5607 50%, #FF006E 50%, #8338EC);
-            color: #fff;
-            float: left;
-            margin-top: 5px;
-        }
-
-        #button_container button {
-            width: 50%;
-            height: 100%;
-            float: left;
-            background: transparent;
-            color: inherit;
-            font-family: Montserrat;
-            letter-spacing: 1px;
-            font-weight: 900;
-            font-size: 12px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        input[type="email"]:focus, input[type="password"]:focus {
+            border-bottom: 2px solid var(--accent-color);
         }
 
         .radio-group {
             display: flex;
             justify-content: space-between;
+            width: 100%;
             margin-bottom: 20px;
             color: #fff;
-            font-family: Montserrat;
-            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        #button_container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        #button_container button {
+            width: 45%;
+            height: 40px;
+            background: var(--accent-color);
+            color: #fff;
+            font-family: var(--primary-font);
+            font-weight: 700;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #button_container button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -140,24 +141,21 @@
     <div id="content_container">
         <div id="form_container">
             <div id="form_header_container">
-                <h2 id="form_header"> Login + Firebase Database </h2>
+                <h2 id="form_header">Login + Firebase Database</h2>
             </div>
-
             <div id="form_content_container">
-                <div id="form_content_inner_container">
-                    <input type="email" id="email" placeholder="Enter your Email">
-                    <input type="password" id="password" placeholder="Enter your Password">
+                <input type="email" id="email" placeholder="Enter your Email">
+                <input type="password" id="password" placeholder="Enter your Password">
 
-                    <!-- Radio Buttons for Role Selection -->
-                    <div class="radio-group">
-                        <label><input type="radio" name="role" value="user" checked> Login as User</label>
-                        <label><input type="radio" name="role" value="guardian"> Login as Guardian</label>
-                    </div>
+                <!-- Radio Buttons for Role Selection -->
+                <div class="radio-group">
+                    <label><input type="radio" name="role" value="user" checked> Login as User</label>
+                    <label><input type="radio" name="role" value="guardian"> Login as Guardian</label>
+                </div>
 
-                    <div id="button_container">
-                        <button onclick="login()">Login</button>
-                        <button onclick="register()">Register</button>
-                    </div>
+                <div id="button_container">
+                    <button onclick="login()">Login</button>
+                    <button onclick="register()">Register</button>
                 </div>
             </div>
         </div>
@@ -168,7 +166,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 
-    <!-- Inline JavaScript -->
+    <!-- JavaScript for Firebase Authentication -->
     <script>
         // Firebase Configuration
         var firebaseConfig = {
@@ -187,63 +185,75 @@
         function register() {
             let email = document.getElementById('email').value;
             let password = document.getElementById('password').value;
+            const role = document.querySelector('input[name="role"]:checked').value;
 
             if (!validate_email(email)) {
-                alert('Enter proper email address');
+                alert('Please enter a valid email address.');
                 return;
             }
 
             if (!validate_password(password)) {
-                alert('Password must atleast contain 6 characters');
+                alert('Password must contain at least 6 characters.');
                 return;
             }
 
             auth.createUserWithEmailAndPassword(email, password)
-            .then(() => {
-                var user = auth.currentUser;
-                var database_ref = database.ref();
-                var user_data = {
-                    email: email,
-                    last_login: Date.now()
-                };
-                database_ref.child('users/' + user.uid).set(user_data);
-                alert('User Created!!');
-            })
-            .catch(error => alert(error.message));
+                .then(() => {
+                    var user = auth.currentUser;
+                    var database_ref = database.ref();
+
+                    var user_data = {
+                        email: email,
+                        role: role,
+                        last_login: Date.now()
+                    };
+
+                    database_ref.child('users/' + user.uid).set(user_data);
+                    alert('User registered successfully!');
+                })
+                .catch(error => alert(error.message));
         }
 
         function login() {
             let email = document.getElementById('email').value;
             let password = document.getElementById('password').value;
+            const role = document.querySelector('input[name="role"]:checked').value;
 
             if (!validate_email(email)) {
-                alert('Enter proper email address');
+                alert('Enter a valid email address');
                 return;
             }
 
             if (!validate_password(password)) {
-                alert('Password must atleast contain 6 characters');
+                alert('Password must contain at least 6 characters');
                 return;
             }
 
             auth.signInWithEmailAndPassword(email, password)
             .then(() => {
-                var user = auth.currentUser;
-                var database_ref = database.ref();
-                var user_data = { last_login: Date.now() };
-                database_ref.child('users/' + user.uid).update(user_data);
+                const user = auth.currentUser;
+                const database_ref = database.ref();
 
-                // Check which role is selected and redirect accordingly
-                const role = document.querySelector('input[name="role"]:checked').value;
+                // Update the last login time in the database
+                database_ref.child('users/' + user.uid).update({ last_login: Date.now() });
+
+                // Logging role and redirection for debugging
+                console.log("Logged in as:", role);
+
+                // Redirect based on user role
                 if (role === 'user') {
                     window.location.href = 'user_dashboard.html';
                 } else if (role === 'guardian') {
                     window.location.href = 'guardian_dashboard.html';
+                } else {
+                    alert("Role not selected or unrecognized.");
                 }
             })
-            .catch(error => alert(error.message));
+            .catch((error) => {
+                console.error("Login error:", error);
+                alert("Login failed: " + error.message);
+            });
         }
-
         function validate_email(email) {
             const expression = /^[^@]+@\w+(\.\w+)+\w$/;
             return expression.test(email);
@@ -252,7 +262,6 @@
         function validate_password(password) {
             return password.length >= 6;
         }
-
     </script>
 </body>
 </html>
