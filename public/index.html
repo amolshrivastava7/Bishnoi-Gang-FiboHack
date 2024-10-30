@@ -1,365 +1,258 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Women's Safety Alert System</title>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login + Firebase Database</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap" rel="stylesheet">
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
+    <!-- Inline CSS -->
     <style>
-      body {
-        background: linear-gradient(135deg, #2b2b2b, #3d3d3d, #5e5e5e);
-        background-size: 400% 400%;
-        animation: gradientShift 8s ease infinite;
-        font-family: "Arial", sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        position: relative;
-        top: 100px;
-        max-width: 800px;
-        margin-top: 50px;
-        padding: 30px;
-        background: rgba(50, 50, 50, 0.85); /* Dark semi-transparent background */
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for contrast */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
-        backdrop-filter: blur(10px); /* Frosted glass effect */
-        
-        /* Flex settings to center content */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        
-        /* Entrance animation */
-        opacity: 0;
-        transform: translateY(-30px);
-        animation: fadeInSlideDown 1s ease forwards;
-      }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-      h1 {
-        text-align: center;
-        color: #ffffff;
-        font-weight: bold;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border: none;
+            outline: none;
+        }
+        #content_container {
+            width: 30%;
+            height: 70%;
+        }
 
-      p {
-        text-align: center;
-        font-size: 1.1em;
-        color: #e0e0e0;
-      }
-      
-      .btn-custom {
-        background-color: #ff4d4d;
-        color: white;
-        height: 100px;
-        width: 100%;
-        font-size: 30px;
-        padding: 10px 20px;
-        border-radius: 50px;
-        margin: 0px;
-        transition: background-color 0.3s ease;
-      }
-      .btn-custom:hover {
-        background-color: #e63939;
-      }
-      #status {
-        margin-top: 20px;
-        text-align: center;
-        font-size: 1.2em;
-        color: #333;
-        padding: 10px;
-      }
-      footer {
-        text-align: center;
-        margin-top: 0px;
-        padding: 10px;
-        background-color: #f5f5f5;
-        border-top: 1px solid #ddd;
-      }
-      nav.navbar {
-        animation: fadeIn 1s ease-in-out;
-      }
-      .footer {
-        background-color: #1e1e1e;
-        color: #b0b0b0;
-        text-align: center;
-        padding: 20px;
-      }
-      @keyframes fadeInSlideDown {
-        from {
-          opacity: 0;
-          transform: translateY(-30px);
+        #form_container {
+            width: 100%;
+            height: 100%;
+            background-color: #370617;
+            box-shadow: 0 0 50px -20px #000;
+            border-radius: 2%;
+            overflow: hidden;
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @keyframes gradientShift {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
 
-      /* New styles for audio player */
-      .audio-player {
-        background-color: #444; /* Dark background for the player */
-        border-radius: 10px;
-        padding: 10px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      }
-      .audio-player audio {
-        width: 100%;
-        outline: none; /* Remove outline on focus */
-        border-radius: 5px; /* Rounded corners */
-      }
-      .audio-controls {
-        display: flex;
-        align-items: center;
-      }
+        #form_header_container {
+            width: 100%;
+            height: 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            float: left;
+            padding: 20px;
+            padding-bottom: 30px;
+            padding-top: 30px;
+            border-bottom: 1px solid transparent;
+            border-image: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF) 20;
+            background: #000;
+        }
+
+        #form_header {
+            display: inline-block;
+            font-size: 15px;
+            font-family: Bowlby One SC;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #form_content_container {
+            width: 100%;
+            height: 90%;
+            float: left;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 30px;
+        }
+
+        #form_content_inner_container {
+            width: 75%;
+            height: 100%;
+            float: left;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            height: 40px;
+            padding-left: 10px;
+            margin-bottom: 20px;
+            background: #000;
+            font-family: Montserrat;
+            font-weight: 500;
+            color: #fff;
+            font-size: 12px;
+            border-bottom: 2px solid transparent;
+            border-top-left-radius: 2%;
+            border-top-right-radius: 2%;
+            border-image: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF) 1;
+        }
+
+        #button_container {
+            width: 100%;
+            height: 10%;
+            background-image: linear-gradient(80deg, #FFBE0B, #FB5607 50%, #FF006E 50%, #8338EC);
+            color: #fff;
+            float: left;
+            margin-top: 5px;
+        }
+
+        #button_container button {
+            width: 50%;
+            height: 100%;
+            float: left;
+            background: transparent;
+            color: inherit;
+            font-family: Montserrat;
+            letter-spacing: 1px;
+            font-weight: 900;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: #fff;
+            font-family: Montserrat;
+            font-weight: 500;
+        }
     </style>
-  </head>
-  <body>
-    <nav class="navbar bg-body-tertiary fixed-top" data-bs-theme="dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Bishnoi Gang Women Safety Alert System</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="offcanvas offcanvas-end"
-          tabindex="-1"
-          id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel"
-        >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">BGWSAS</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="about-index.html">About
-                </a>
-              </li>
-            </ul>
-          </div>
+</head>
+<body>
+    <div id="content_container">
+        <div id="form_container">
+            <div id="form_header_container">
+                <h2 id="form_header"> Login + Firebase Database </h2>
+            </div>
+
+            <div id="form_content_container">
+                <div id="form_content_inner_container">
+                    <input type="email" id="email" placeholder="Email">
+                    <input type="password" id="password" placeholder="New Password">
+
+                    <!-- Radio Buttons for Role Selection -->
+                    <div class="radio-group">
+                        <label><input type="radio" name="role" value="user" checked> Login as User</label>
+                        <label><input type="radio" name="role" value="guardian"> Login as Guardian</label>
+                    </div>
+
+                    <div id="button_container">
+                        <button onclick="login()">Login</button>
+                        <button onclick="register()">Register</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </nav>
-    <!-- Main Content -->
-    <div class="container">
-      <h1>Women's Safety Alert System</h1>
-      <p>
-        Click the button below to send an emergency alert and start recording.
-      </p>
-
-      <!-- Button to send alert and start recording -->
-      <button id="alertButton" class="btn btn-custom">
-        Send Alert & Start Recording
-      </button>
-
-      <!-- Audio playback after recording -->
-      <div class="audio-player" id="audioPlayer" style="display: none; margin-top: 20px">
-        <audio
-          id="audioPlayback"
-          controls
-        ></audio>
-      </div>
-
-      <!-- Status message display -->
-      <p id="status"></p>
     </div>
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Script for handling the alert and recording functionality -->
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <!-- Inline JavaScript -->
     <script>
-      const alertButton = document.getElementById("alertButton");
-      const statusMessage = document.getElementById("status");
-      const audioPlayback = document.getElementById("audioPlayback");
-      const audioPlayer = document.getElementById("audioPlayer");
+        // Firebase Configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCfZpyar2oTa-gTMcjlJgbrqhTjBPseU4A",
+            authDomain: "fibo-c2f94.firebaseapp.com",
+            projectId: "fibo-c2f94",
+            storageBucket: "fibo-c2f94.appspot.com",
+            messagingSenderId: "969464416828",
+            appId: "1:969464416828:web:96796f969e9f4337189139"
+        };
+        firebase.initializeApp(firebaseConfig);
 
-      let mediaRecorder;
-      let audioChunks = [];
+        const auth = firebase.auth();
+        const database = firebase.database();
 
-      // Function to send alert with actual location
-      async function sendAlert(latitude, longitude) {
-        try {
-          const response = await fetch("/api/send-alert", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ latitude, longitude }),
-          });
+        function register() {
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
 
-          const result = await response.json();
-          if (result.success) {
-            statusMessage.innerText = "Alert sent successfully";
-            statusMessage.style.color = "green";
-          } else {
-            statusMessage.innerText = "Failed to send alert";
-            statusMessage.style.color = "red";
-          }
-        } catch (err) {
-          console.error("Error sending alert:", err);
-          statusMessage.innerText = "Error sending alert";
-          statusMessage.style.color = "red";
-        }
-      }
-
-      // Function to get the user's location using the Geolocation API
-      function getLocation() {
-        return new Promise((resolve, reject) => {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              (position) => {
-                resolve({
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                });
-              },
-              (error) => {
-                reject("Geolocation permission denied or unavailable");
-              }
-            );
-          } else {
-            reject("Geolocation not supported by this browser");
-          }
-        });
-      }
-
-      // Function to start recording audio
-      async function startRecording() {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-          });
-          mediaRecorder = new MediaRecorder(stream);
-
-          mediaRecorder.ondataavailable = (event) => {
-            if (event.data.size > 0) {
-              audioChunks.push(event.data);
+            if (!validate_email(email)) {
+                alert('Enter proper email address');
+                return;
             }
-          };
 
-          mediaRecorder.onstop = async () => {
-            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-            const audioURL = URL.createObjectURL(audioBlob);
-            audioPlayback.src = audioURL;
-            audioPlayer.style.display = "flex"; // Show audio player
-            audioPlayback.style.display = "block";
+            if (!validate_password(password)) {
+                alert('Password must atleast contain 6 characters');
+                return;
+            }
 
-            // Upload the recording after stopping
-            await uploadRecording(audioBlob);
-          };
-
-          mediaRecorder.start();
-          statusMessage.innerText = "Recording started...";
-          statusMessage.style.color = "#ff4d4d";
-
-          // Automatically stop recording after 10 seconds
-          setTimeout(() => {
-            mediaRecorder.stop();
-            statusMessage.innerText = "Recording stopped. Uploading...";
-          }, 10000); // 10 seconds
-        } catch (err) {
-          console.error("Error accessing microphone:", err);
-          statusMessage.innerText = "Error accessing microphone";
-          statusMessage.style.color = "red";
+            auth.createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                var user = auth.currentUser;
+                var database_ref = database.ref();
+                var user_data = {
+                    email: email,
+                    last_login: Date.now()
+                };
+                database_ref.child('users/' + user.uid).set(user_data);
+                alert('User Created!!');
+            })
+            .catch(error => alert(error.message));
         }
-      }
 
-      // Function to upload the recording
-      async function uploadRecording(audioBlob) {
-        const formData = new FormData();
-        formData.append("file", audioBlob, "recording.webm");
+        function login() {
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
 
-        try {
-          const response = await fetch("/api/upload-recording", {
-            method: "POST",
-            body: formData,
-          });
+            if (!validate_email(email)) {
+                alert('Enter proper email address');
+                return;
+            }
 
-          const result = await response.json();
-          if (result.success) {
-            statusMessage.innerText += " | Recording uploaded successfully";
-            statusMessage.style.color = "green";
-          } else {
-            statusMessage.innerText += " | Failed to upload recording";
-            statusMessage.style.color = "red";
-          }
-        } catch (err) {
-          console.error("Error uploading recording:", err);
-          statusMessage.innerText += " | Error uploading recording";
-          statusMessage.style.color = "red";
+            if (!validate_password(password)) {
+                alert('Password must atleast contain 6 characters');
+                return;
+            }
+
+            auth.signInWithEmailAndPassword(email, password)
+            .then(() => {
+                var user = auth.currentUser;
+                var database_ref = database.ref();
+                var user_data = { last_login: Date.now() };
+                database_ref.child('users/' + user.uid).update(user_data);
+
+                // Check which role is selected and redirect accordingly
+                const role = document.querySelector('input[name="role"]:checked').value;
+                if (role === 'user') {
+                    window.location.href = 'user_dashboard.html';
+                } else if (role === 'guardian') {
+                    window.location.href = 'guardian_dashboard.html';
+                }
+            })
+            .catch(error => alert(error.message));
         }
-      }
 
-      // Start the process when the button is clicked
-      alertButton.addEventListener("click", async () => {
-        try {
-          // Get the actual geolocation before sending the alert
-          const location = await getLocation();
-          await sendAlert(location.latitude, location.longitude); // Send alert with real coordinates
-          startRecording(); // Then start recording
-        } catch (error) {
-          console.error("Error getting location:", error);
-          statusMessage.innerText = "Error getting location";
-          statusMessage.style.color = "red";
+        function validate_email(email) {
+            const expression = /^[^@]+@\w+(\.\w+)+\w$/;
+            return expression.test(email);
         }
-      });
+
+        function validate_password(password) {
+            return password.length >= 6;
+        }
+
     </script>
-  </body>
+</body>
 </html>
