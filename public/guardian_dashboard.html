@@ -166,7 +166,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="index.html">Home
+                <a class="nav-link" aria-current="page" href="javascript:void(0);" onclick="logout()">Log Out
                 </a>
               </li>
                 </ul>
@@ -207,6 +207,17 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
+
+        function logout() {
+    // Set cookies to expire in the past to clear them
+    document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "rememberMe=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    // Optionally redirect to the login page after logout
+    window.location.href = 'index.html';  // Or change the URL to wherever you want to redirect
+  }
+
         const alertsDiv = document.getElementById('alerts');
         const recordingsDiv = document.getElementById('recordings');
         const socket = io();
