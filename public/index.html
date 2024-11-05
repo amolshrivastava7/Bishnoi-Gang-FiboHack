@@ -6,7 +6,6 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
     <!-- Inline CSS -->
     <style>
         /* Root style for easy theme modifications */
@@ -153,6 +152,11 @@
                     <label><input type="radio" name="role" value="guardian"> Login as Guardian</label>
                 </div>
 
+                <!-- Remember Me Checkbox -->
+                <div>
+                    <label><input type="checkbox" id="rememberMe"> Remember Me</label>
+                </div>
+
                 <div id="button_container">
                     <button onclick="login()">Login</button>
                     <button onclick="register()">Register</button>
@@ -166,7 +170,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 
-    <!-- JavaScript for Firebase Authentication -->
+    <!-- JavaScript for Firebase Authentication and Remember Me functionality -->
     <script>
         // Firebase Configuration
         var firebaseConfig = {
@@ -181,6 +185,18 @@
 
         const auth = firebase.auth();
         const database = firebase.database();
+
+        // Check cookies on page load
+        window.onload = function() {
+            const rememberedRole = getCookie("role");
+            if (getCookie("rememberMe") === "true" && rememberedRole) {
+                if (rememberedRole === 'user') {
+                    window.location.href = 'user_dashboard.html';
+                } else if (rememberedRole === 'guardian') {
+                    window.location.href = 'guardian_dashboard.html';
+                }
+            }
+        };
 
         function register() {
             let email = document.getElementById('email').value;
@@ -218,6 +234,7 @@
             let email = document.getElementById('email').value;
             let password = document.getElementById('password').value;
             const role = document.querySelector('input[name="role"]:checked').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
 
             if (!validate_email(email)) {
                 alert('Enter a valid email address');
@@ -237,23 +254,28 @@
                 // Update the last login time in the database
                 database_ref.child('users/' + user.uid).update({ last_login: Date.now() });
 
-                // Logging role and redirection for debugging
-                console.log("Logged in as:", role);
+                // Set cookies if "Remember Me" is checked
+                if (rememberMe) {
+                    setCookie("email", email, 7);
+                    setCookie("role", role, 7);
+                    setCookie("rememberMe", "true", 7);
+                } else {
+                    // Clear cookies if "Remember Me" is not checked
+                    clearCookies();
+                }
 
                 // Redirect based on user role
                 if (role === 'user') {
                     window.location.href = 'user_dashboard.html';
                 } else if (role === 'guardian') {
                     window.location.href = 'guardian_dashboard.html';
-                } else {
-                    alert("Role not selected or unrecognized.");
                 }
             })
             .catch((error) => {
-                console.error("Login error:", error);
                 alert("Login failed: " + error.message);
             });
         }
+
         function validate_email(email) {
             const expression = /^[^@]+@\w+(\.\w+)+\w$/;
             return expression.test(email);
@@ -261,6 +283,25 @@
 
         function validate_password(password) {
             return password.length >= 6;
+        }
+
+        // Cookie handling functions
+        function setCookie(name, value, days) {
+            const expires = new Date(Date.now() + days * 864e5).toUTCString();
+            document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+        }
+
+        function getCookie(name) {
+            return document.cookie.split('; ').reduce((r, v) => {
+                const parts = v.split('=');
+                return parts[0] === name ? decodeURIComponent(parts[1]) : r
+            }, '');
+        }
+
+        function clearCookies() {
+            setCookie("email", "", -1);
+            setCookie("role", "", -1);
+            setCookie("rememberMe", "", -1);
         }
     </script>
 </body>
