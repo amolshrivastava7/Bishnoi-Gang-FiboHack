@@ -190,6 +190,10 @@
                 <a class="nav-link" aria-current="page" href="about_user.html">About
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="javascript:void(0);" onclick="logout()">Log Out
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -225,6 +229,17 @@
 
     <!-- Script for handling the alert and recording functionality -->
     <script>
+
+        function logout() {
+    // Set cookies to expire in the past to clear them
+    document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "rememberMe=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    // Optionally redirect to the login page after logout
+    window.location.href = 'index.html';  // Or change the URL to wherever you want to redirect
+  }
+
       const alertButton = document.getElementById("alertButton");
       const statusMessage = document.getElementById("status");
       const audioPlayback = document.getElementById("audioPlayback");
