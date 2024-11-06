@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login + Firebase Database</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -133,6 +134,57 @@
         #button_container button:hover {
             transform: scale(1.05);
             box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Media Query for Tablets */
+        @media (max-width: 768px) {
+            #content_container {
+                width: 70%;
+                height: 80%;
+            }
+
+            #form_header {
+                font-size: 1.3rem;
+            }
+
+            input[type="email"], input[type="password"] {
+                font-size: 0.85rem;
+            }
+
+            #button_container button {
+                width: 48%;
+            }
+        }
+
+        /* Media Query for Mobile Phones */
+        @media (max-width: 480px) {
+            #content_container {
+                width: 90%;
+                height: 90%;
+            }
+
+            #form_header {
+                font-size: 1.2rem;
+            }
+
+            input[type="email"], input[type="password"] {
+                font-size: 0.8rem;
+                height: 35px;
+            }
+
+            .radio-group {
+                font-size: 0.8rem;
+            }
+
+            #button_container button {
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            #button_container {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
