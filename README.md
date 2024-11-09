@@ -27,7 +27,7 @@
 
 ## Project Structure
 
-```plaintext
+plaintext
 fibo_try_1-main/
 ├── .env                     # Environment variables for sensitive data
 ├── README.md                # Documentation for the project
@@ -41,10 +41,10 @@ fibo_try_1-main/
     ├── index.html           # Main landing page
     └── user_dashboard.html  # User dashboard
 
-Installation
-Clone the Repository:
+## Installation
+- **Clone the Repository:
 
-bash
+- ** bash
 Copy code
 git clone https://github.com/whotookthisusername25/fibo
 cd fibo_try_1-main
