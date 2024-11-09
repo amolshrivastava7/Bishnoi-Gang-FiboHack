@@ -31,19 +31,15 @@
         max-width: 800px;
         margin-top: 50px;
         padding: 30px;
-        background: rgba(50, 50, 50, 0.85); /* Dark semi-transparent background */
+        background: rgba(50, 50, 50, 0.85);
         border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for contrast */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
-        backdrop-filter: blur(10px); /* Frosted glass effect */
-        
-        /* Flex settings to center content */
+        border: 1px solid rgba(255, 255, 255, 0.1); 
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+        backdrop-filter: blur(10px); 
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        
-        /* Entrance animation */
         opacity: 0;
         transform: translateY(-30px);
         animation: fadeInSlideDown 1s ease forwards;
@@ -129,10 +125,8 @@
           transform: translateY(0);
         }
       }
-
-      /* New styles for audio player */
       .audio-player {
-        background-color: #444; /* Dark background for the player */
+        background-color: #444; 
         border-radius: 10px;
         padding: 10px;
         width: 100%;
@@ -143,8 +137,8 @@
       }
       .audio-player audio {
         width: 100%;
-        outline: none; /* Remove outline on focus */
-        border-radius: 5px; /* Rounded corners */
+        outline: none; 
+        border-radius: 5px; 
       }
       .audio-controls {
         display: flex;
@@ -199,45 +193,34 @@
         </div>
       </div>
     </nav>
-    <!-- Main Content -->
     <div class="container">
       <h1>Women's Safety Alert System</h1>
       <p>
         Click the button below to send an emergency alert and start recording.
       </p>
-
-      <!-- Button to send alert and start recording -->
       <button id="alertButton" class="btn btn-custom">
         Send Alert & Start Recording
       </button>
-
-      <!-- Audio playback after recording -->
       <div class="audio-player" id="audioPlayer" style="display: none; margin-top: 20px">
         <audio
           id="audioPlayback"
           controls
         ></audio>
       </div>
-
-      <!-- Status message display -->
       <p id="status"></p>
     </div>
-    <!-- Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Script for handling the alert and recording functionality -->
     <script>
 
         function logout() {
-    // Set cookies to expire in the past to clear them
     document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "rememberMe=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-    // Optionally redirect to the login page after logout
-    window.location.href = 'index.html';  // Or change the URL to wherever you want to redirect
+    window.location.href = 'index.html';  
   }
 
       const alertButton = document.getElementById("alertButton");
@@ -248,7 +231,6 @@
       let mediaRecorder;
       let audioChunks = [];
 
-      // Function to send alert with actual location
       async function sendAlert(latitude, longitude) {
         try {
           const response = await fetch("/api/send-alert", {
@@ -274,7 +256,6 @@
         }
       }
 
-      // Function to get the user's location using the Geolocation API
       function getLocation() {
         return new Promise((resolve, reject) => {
           if (navigator.geolocation) {
@@ -295,7 +276,6 @@
         });
       }
 
-      // Function to start recording audio
       async function startRecording() {
         try {
           const stream = await navigator.mediaDevices.getUserMedia({
@@ -313,10 +293,9 @@
             const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
             const audioURL = URL.createObjectURL(audioBlob);
             audioPlayback.src = audioURL;
-            audioPlayer.style.display = "flex"; // Show audio player
+            audioPlayer.style.display = "flex"; 
             audioPlayback.style.display = "block";
 
-            // Upload the recording after stopping
             await uploadRecording(audioBlob);
           };
 
@@ -324,11 +303,10 @@
           statusMessage.innerText = "Recording started...";
           statusMessage.style.color = "#ff4d4d";
 
-          // Automatically stop recording after 10 seconds
           setTimeout(() => {
             mediaRecorder.stop();
             statusMessage.innerText = "Recording stopped. Uploading...";
-          }, 10000); // 10 seconds
+          }, 10000); 
         } catch (err) {
           console.error("Error accessing microphone:", err);
           statusMessage.innerText = "Error accessing microphone";
@@ -336,7 +314,6 @@
         }
       }
 
-      // Function to upload the recording
       async function uploadRecording(audioBlob) {
         const formData = new FormData();
         formData.append("file", audioBlob, "recording.webm");
@@ -362,13 +339,11 @@
         }
       }
 
-      // Start the process when the button is clicked
       alertButton.addEventListener("click", async () => {
         try {
-          // Get the actual geolocation before sending the alert
           const location = await getLocation();
-          await sendAlert(location.latitude, location.longitude); // Send alert with real coordinates
-          startRecording(); // Then start recording
+          await sendAlert(location.latitude, location.longitude);
+          startRecording(); 
         } catch (error) {
           console.error("Error getting location:", error);
           statusMessage.innerText = "Error getting location";
