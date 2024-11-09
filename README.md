@@ -9,10 +9,6 @@
 *A modern web application designed to enhance women's safety through real-time alerts and emergency response features* 
 </div>
 
-<p align="center">
-  <img src="/api/placeholder/800/400" alt="Women's Safety Alert System Demo">
-</p>
-
 ## ✨ Features
 
 - **🔴 One-Click Emergency Alert**: Instantly notify emergency contacts with your location.
