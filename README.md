@@ -15,12 +15,10 @@
 
 ## ✨ Features
 
-- **🔴 One-Click Emergency Alert**: Instantly notify emergency contacts with your location
-- **📍 Real-Time Location Tracking**: Share your live location with trusted contacts
-- **🔊 Loud Alarm System**: Activate a high-decibel alarm to draw attention
-- **👥 Trusted Contacts Network**: Easily manage your emergency contact list
-- **🗺️ Safe Route Navigation**: Get suggestions for safer travel routes
-- **⚡ Offline Functionality**: Core features work without internet connection
+- **🔴 One-Click Emergency Alert**: Instantly notify emergency contacts with your location.
+- **📍 Real-Time Location Tracking**: Share your live location with guardians.
+- **👥 Multiple Login**: Both users and guardians can login with same ID. 
+- **🔈 Real-Time Audio Alert**: Share your audio alerts with guardians.
 
 ## 🚀 Quick Start
 
