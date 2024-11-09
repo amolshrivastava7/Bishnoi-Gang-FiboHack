@@ -42,21 +42,20 @@ fibo_try_1-main/
     └── user_dashboard.html  # User dashboard
 
 ## Installation
-- **Clone the Repository:
-
+- ** Clone the Repository:
 - ** bash
-Copy code
+- ** Copy code
 git clone https://github.com/whotookthisusername25/fibo
 cd fibo_try_1-main
-Install Dependencies: Ensure you have Node.js installed, then install the project dependencies:
+- ** Install Dependencies: Ensure you have Node.js installed, then install the project dependencies:
 
 bash
 Copy code
-npm install
-Set Up Environment Variables: Create a .env file in the root directory with the necessary configurations (see below).
+- ** npm install
+- ** Set Up Environment Variables: Create a .env file in the root directory with the necessary configurations (see below).
 
-Environment Variables
-The .env file should include the following:
+- ** Environment Variables
+- ** The .env file should include the following:
 
 plaintext
 Copy code
@@ -69,7 +68,7 @@ FIREBASE_APP_ID=your_firebase_app_id
 WHATSAPP_API_KEY=your_whatsapp_api_key
 Replace each your_* with your specific Firebase and WhatsApp configurations.
 
-Usage
+## Usage
 Start the Server:
 
 bash
@@ -85,13 +84,13 @@ Sending an Alert:
 
 Open the User Dashboard.
 Click the alert button to start video recording, capture location data, and send the alert to designated contacts.
-Tech Stack
+## Tech Stack
 
-Dependencies
-The project includes the following main dependencies:
+- ** Dependencies
+- ** The project includes the following main dependencies:
 
-Express: Server framework for Node.js.
-Firebase: Real-time database and storage for video uploads.
-Multer: Middleware for handling file uploads.
-dotenv: For managing environment variables.
-For a complete list of dependencies, refer to package.json.
+- Express: Server framework for Node.js.
+- Firebase: Real-time database and storage for video uploads.
+- Multer: Middleware for handling file uploads.
+- dotenv: For managing environment variables.
+- For a complete list of dependencies, refer to package.json.
