@@ -4,12 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login + Firebase Database</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Inline CSS -->
     <style>
-        /* Root style for easy theme modifications */
         :root {
             --primary-gradient: linear-gradient(135deg, #2b2b2b, #3d3d3d, #5e5e5e);
             --accent-color: rgba(255, 77, 77, 0.8);
@@ -136,7 +133,6 @@
             box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Media Query for Tablets */
         @media (max-width: 768px) {
             #content_container {
                 width: 70%;
@@ -156,7 +152,6 @@
             }
         }
 
-        /* Media Query for Mobile Phones */
         @media (max-width: 480px) {
             #content_container {
                 width: 90%;
@@ -201,13 +196,11 @@
                 <input type="email" id="email" placeholder="Enter your Email">
                 <input type="password" id="password" placeholder="Enter your Password">
 
-                <!-- Radio Buttons for Role Selection -->
                 <div class="radio-group">
                     <label><input type="radio" name="role" value="user" checked> Login as User</label>
                     <label><input type="radio" name="role" value="guardian"> Login as Guardian</label>
                 </div>
 
-                <!-- Remember Me Checkbox -->
                 <div>
                     <label id="rememberMe"><input type="checkbox"> Remember Me</label>
                 </div>
@@ -220,14 +213,11 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 
-    <!-- JavaScript for Firebase Authentication and Remember Me functionality -->
     <script>
-        // Firebase Configuration
         var firebaseConfig = {
             apiKey: "AIzaSyCfZpyar2oTa-gTMcjlJgbrqhTjBPseU4A",
             authDomain: "fibo-c2f94.firebaseapp.com",
@@ -241,7 +231,6 @@
         const auth = firebase.auth();
         const database = firebase.database();
 
-        // Check cookies on page load
         window.onload = function() {
             const rememberedRole = getCookie("role");
             if (getCookie("rememberMe") === "true" && rememberedRole) {
@@ -306,20 +295,16 @@
                 const user = auth.currentUser;
                 const database_ref = database.ref();
 
-                // Update the last login time in the database
                 database_ref.child('users/' + user.uid).update({ last_login: Date.now() });
 
-                // Set cookies if "Remember Me" is checked
                 if (rememberMe) {
                     setCookie("email", email, 7);
                     setCookie("role", role, 7);
                     setCookie("rememberMe", "true", 7);
                 } else {
-                    // Clear cookies if "Remember Me" is not checked
                     clearCookies();
                 }
 
-                // Redirect based on user role
                 if (role === 'user') {
                     window.location.href = 'user_dashboard.html';
                 } else if (role === 'guardian') {
@@ -340,7 +325,6 @@
             return password.length >= 6;
         }
 
-        // Cookie handling functions
         function setCookie(name, value, days) {
             const expires = new Date(Date.now() + days * 864e5).toUTCString();
             document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
