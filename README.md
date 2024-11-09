@@ -1,6 +1,12 @@
 # Fibo Try 1 Main
 
+![Project Logo](https://example.com/project-logo.png) <!-- Replace with actual logo URL if available -->
+
 **Fibo Try 1 Main** is a web-based safety alert system designed to provide real-time emergency alerts and response tracking, especially focused on women's safety. The application includes dashboards for both users and guardians, allowing for quick access to location information and other alert functionalities. This project is part of the "Bishnoi Gang" team initiative.
+
+![Demo Animation](https://example.com/demo-animation.gif) <!-- Replace with an actual GIF URL if available -->
+
+---
 
 ## Table of Contents
 
@@ -9,6 +15,7 @@
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
 - [Usage](#usage)
+- [Tech Stack](#tech-stack)
 - [Dependencies](#dependencies)
 
 ## Features
