@@ -51,5 +51,4 @@ We welcome contributions! Please follow these steps:
   
 ### Made with ❤️ for a safer world
 
-[Report Bug](https://github.com/yourusername/women-safety-alert/issues) · [Request Feature](https://github.com/yourusername/women-safety-alert/issues)
 </div>
