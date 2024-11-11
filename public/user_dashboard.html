@@ -160,24 +160,24 @@
         }
 
         .modal-content {
-    position: relative;
-    background-color: white;
-    margin: 5% auto;
-    padding: 20px;
-    width: 80%;
-    height: 80vh; /* Add explicit viewport height */
-    border-radius: 8px;
-    overflow: hidden; /* Add this to contain the map */
-}
-
-#map {
-    position: absolute; /* Add this */
-    top: 0;           /* Add this */
-    left: 0;          /* Add this */
-    width: 100%;      /* Add this */
-    height: 100%;     /* Keep this */
-    border-radius: 4px;
-}
+          position: relative;
+          background-color: white;
+          margin: 5% auto;
+          padding: 20px;
+          width: 80%;
+          height: 80vh; 
+          border-radius: 8px;
+          overflow: hidden; 
+      }
+      
+      #map {
+          position: absolute; 
+          top: 0;           
+          left: 0;          
+          width: 100%;      
+          height: 100%;     
+          border-radius: 4px;
+      }
 
         .close {
             position: absolute;
@@ -472,10 +472,8 @@ let map;
                 }
             });
 
-            // Set map view to user's location
             map.setView([userLat, userLng], 13);
 
-            // Add user marker
             userMarker = L.marker([userLat, userLng], {
                 icon: L.divIcon({
                     className: 'user-marker',
@@ -484,7 +482,6 @@ let map;
             }).addTo(map).bindPopup('Your Location');
 
             try {
-                // Fetch nearby hospitals and police stations
                 const [hospitals, policeStations] = await Promise.all([
                     fetchNearbyPlaces(userLat, userLng, 'hospital'),
                     fetchNearbyPlaces(userLat, userLng, 'police')
@@ -494,7 +491,6 @@ let map;
                 const nearestPolice = findNearestPlace(userLat, userLng, policeStations);
 
                 if (nearestHospital) {
-                    // Add hospital marker
                     L.marker([nearestHospital.lat, nearestHospital.lon], {
                         icon: L.divIcon({
                             className: 'hospital-marker',
@@ -503,7 +499,6 @@ let map;
                     }).addTo(map)
                     .bindPopup(`Nearest Hospital<br>Distance: ${nearestHospital.distance.toFixed(2)} km`);
                     
-                    // Add hospital route
                     const hospitalRoute = L.Routing.control({
                         waypoints: [
                             L.latLng(userLat, userLng),
@@ -521,7 +516,6 @@ let map;
                 }
 
                 if (nearestPolice) {
-                    // Add police station marker
                     L.marker([nearestPolice.lat, nearestPolice.lon], {
                         icon: L.divIcon({
                             className: 'police-marker',
@@ -530,7 +524,6 @@ let map;
                     }).addTo(map)
                     .bindPopup(`Nearest Police Station<br>Distance: ${nearestPolice.distance.toFixed(2)} km`);
                     
-                    // Add police route
                     const policeRoute = L.Routing.control({
                         waypoints: [
                             L.latLng(userLat, userLng),
