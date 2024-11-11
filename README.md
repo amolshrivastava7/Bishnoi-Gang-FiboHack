@@ -2,9 +2,6 @@
   
 # 🚨 Women's Safety Alert System
   
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/your/repo/graphs/commit-activity)
 
 *A modern web application designed to enhance women's safety through real-time alerts and emergency response features* 
 </div>
@@ -34,12 +31,11 @@ npm run dev
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React.js with Tailwind CSS
+- **Frontend**: CSS and Bootstraps
 - **Backend**: Node.js & Express
-- **Database**: MongoDB
-- **Authentication**: JWT
-- **Maps Integration**: Mapbox API
-- **Push Notifications**: Firebase Cloud Messaging
+- **Database**: Firebase
+- **Authentication**: Firebase
+- **Maps Integration**: leaflet API
 
 ## 📱 App Screenshots
 
@@ -54,10 +50,21 @@ npm run dev
 Create a `.env` file in the root directory:
 
 ```env
-MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-MAPBOX_API_KEY=your_mapbox_key
-FIREBASE_CONFIG=your_firebase_config
+# Firebase Project ID
+FIREBASE_PROJECT_ID="Your ID"
+
+# Firebase Private Key ID
+FIREBASE_PRIVATE_KEY_ID="Your ID"
+
+# Firebase Private Key (Ensure newlines are replaced with '\n' if using Windows)
+FIREBASE_PRIVATE_KEY="Your Key"
+
+# Firebase Client Email
+FIREBASE_CLIENT_EMAIL=" "
+
+# Firebase Storage Bucket (specific to your project)
+FIREBASE_STORAGE_BUCKET=" "
+
 ```
 
 ## 🤝 Contributing
