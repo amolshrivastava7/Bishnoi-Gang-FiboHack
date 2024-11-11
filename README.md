@@ -13,22 +13,6 @@
 - **👥 Multiple Login**: Both users and guardians can login with same ID. 
 - **🔈 Real-Time Audio Alert**: Share your audio alerts with guardians.
 
-## 🚀 Quick Start
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/women-safety-alert
-
-# Navigate to project directory
-cd women-safety-alert
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
 ## 🛠️ Tech Stack
 
 - **Frontend**: CSS and Bootstraps
@@ -44,28 +28,6 @@ npm run dev
   <img src="/api/placeholder/250/500" alt="Alert Screen">
   <img src="/api/placeholder/250/500" alt="Contacts Screen">
 </p>
-
-## 🔧 Configuration
-
-Create a `.env` file in the root directory:
-
-```env
-# Firebase Project ID
-FIREBASE_PROJECT_ID="Your ID"
-
-# Firebase Private Key ID
-FIREBASE_PRIVATE_KEY_ID="Your ID"
-
-# Firebase Private Key (Ensure newlines are replaced with '\n' if using Windows)
-FIREBASE_PRIVATE_KEY="Your Key"
-
-# Firebase Client Email
-FIREBASE_CLIENT_EMAIL=" "
-
-# Firebase Storage Bucket (specific to your project)
-FIREBASE_STORAGE_BUCKET=" "
-
-```
 
 ## 🤝 Contributing
 
