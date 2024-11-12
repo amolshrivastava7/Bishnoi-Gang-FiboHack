@@ -14,9 +14,9 @@
 - Email-based authentication ensures that each account is uniquely identified and provides a straightforward login process.
 
 ### 2. Role-Based Dashboard Navigation
-- After logging in, users and guardians are routed to different dashboards:
-  - **Users** are directed to `index.html`, where they can initiate emergency alerts.
-  - **Guardians** are directed to `dashboard.html`, where they can view alerts and track their assigned user’s location.
+- After logging in through `index.html`, users and guardians are routed to different dashboards:
+  - **Users** are directed to `user_dashboard.html`, where they can initiate emergency alerts.
+  - **Guardians** are directed to `guardian_dashboard.html`, where they can view alerts and track their assigned user’s location.
 
 ### 3. Real-Time Emergency Alerts with Socket.io
 - Users can trigger an alert during emergencies, notifying their assigned guardians in real-time.
