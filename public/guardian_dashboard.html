@@ -211,7 +211,7 @@
         socket.on('new-alert', (data) => {
             const alertElement = document.createElement('div');
             alertElement.classList.add('alert-card');
-            alertElement.innerText = `🚨 Alert received! Latitude: ${data.latitude}, Longitude: ${data.longitude}, Time: ${new Date(data.timestamp).toLocaleTimeString()}`;
+            alertElement.innerText = `🚨 Alert received! at Latitude: ${data.latitude}, Longitude: ${data.longitude},Time: ${new Date(data.timestamp).toLocaleTimeString()}`;
             alertsDiv.prepend(alertElement);  
 
             updateMap(data.latitude, data.longitude);
