@@ -40,7 +40,7 @@
 
 ### 8. Modern UI Design
 - The app has a user-friendly interface with animated elements and a gradient background in shades of yellow, orange, pink, purple, and blue.
-- Fonts like **Montserrat** and **Bowlby One SC** are used for a modern, clean look.
+- Fonts like **Montserrat** are used for a modern, clean look.
 
 ### 9. Responsive Design for Mobile Compatibility
 - The UI has been optimized for mobile devices, especially focusing on features like a shorter login container for smaller screens to enhance the app’s usability.
