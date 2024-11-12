@@ -24,9 +24,9 @@
 ## 📱 App Screenshots
 
 <p align="center">
-  <img src="/api/placeholder/250/500" alt="Home Screen">
-  <img src="/api/placeholder/250/500" alt="Alert Screen">
-  <img src="/api/placeholder/250/500" alt="Contacts Screen">
+  <img src="fibo-ss-login.png" alt="Login Screen">
+  <img src="fibo-ss-user.png" alt="User Dashboard">
+  <img src="fibo-ss-guardian.png" alt="Guardian Dashboard">
 </p>
 
 ## 🤝 Contributing
